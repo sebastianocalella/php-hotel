@@ -40,6 +40,7 @@
 
     ];
 
+    $parking = ($_GET["parking"]=='on') ? true : false;
 
     ?>
 
@@ -56,6 +57,15 @@
     <body>
         <div class="container">
             <div class="row">
+                <div class="col-4">
+                    <form action="index.php" method="GET">
+                        <input type="checkbox" name="parking" id="parking">
+                        <label for="parking">parking required</label>
+                        <button type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col"><h2>Hotel</h2></div>
                 <div class="col"><h2>Description</h2></div>
                 <div class="col"><h2>parking</h2></div>
@@ -63,15 +73,28 @@
                 <div class="col"><h2>distance to center (km)</h2></div>
             </div>
             <?php 
-            foreach($hotels as $hotel){
-                echo '<div class="row">';
-                ($hotel["parking"]) ? $hotel["parking"] = "yes" : $hotel["parking"] = "no";
-
-                foreach($hotel as $hotel_info){
-                    echo "<div class=col>{$hotel_info}</div>";
+                if(!$parking){
+                    foreach($hotels as $hotel){
+                        echo '<div class="row">';
+                        ($hotel["parking"]) ? $hotel["parking"] = "yes" : $hotel    ["parking"] = "no";
+                        
+                        foreach($hotel as $hotel_info){
+                            echo "<div class=col>{$hotel_info}</div>";
+                        }
+                        echo '</div>';
+                    }
+                } else {
+                    foreach($hotels as $hotel){
+                        if($hotel["parking"]){
+                            echo '<div class="row">';
+                            $hotel["parking"] = "yes";
+                            foreach($hotel as $hotel_info){
+                                echo "<div class=col>{$hotel_info}</div>";
+                            }
+                            echo '</div>';
+                        }
+                    }
                 }
-                echo '</div>';
-            }
             ?>
         </div>
     </body>
