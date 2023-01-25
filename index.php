@@ -41,6 +41,7 @@
     ];
 
     $parking = ($_GET["parking"]=='on') ? true : false;
+    $rate = $_GET["rate"];
 
     ?>
 
@@ -60,7 +61,16 @@
                 <div class="col-4">
                     <form action="index.php" method="GET">
                         <input type="checkbox" name="parking" id="parking">
-                        <label for="parking">parking required</label>
+                        <label for="parking">parking required</label><br>
+                        <select name="rate" id="rate">
+                            <option value="0">none</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                        <label for="rate">stars required</label>
                         <button type="submit">Search</button>
                     </form>
                 </div>
@@ -73,7 +83,7 @@
                 <div class="col"><h2>distance to center (km)</h2></div>
             </div>
             <?php 
-                if(!$parking){
+                if(!$parking && !$rate){
                     foreach($hotels as $hotel){
                         echo '<div class="row">';
                         ($hotel["parking"]) ? $hotel["parking"] = "yes" : $hotel    ["parking"] = "no";
@@ -83,11 +93,35 @@
                         }
                         echo '</div>';
                     }
-                } else {
+                } else if($parking && !$rate){
                     foreach($hotels as $hotel){
                         if($hotel["parking"]){
                             echo '<div class="row">';
                             $hotel["parking"] = "yes";
+                            foreach($hotel as $hotel_info){
+                                echo "<div class=col>{$hotel_info}</div>";
+                            }
+                            echo '</div>';
+                        }
+                    }
+                } else if(!$parking && $rate){
+                    foreach($hotels as $hotel){
+                        if($hotel["vote"]>=$rate){
+                            echo '<div class="row">';
+                            ($hotel["parking"]) ? $hotel["parking"] = "yes" : $hotel    ["parking"] = "no";
+                            
+                            foreach($hotel as $hotel_info){
+                                echo "<div class=col>{$hotel_info}</div>";
+                            }
+                            echo '</div>';
+                        }
+                    }
+                } else {
+                    foreach($hotels as $hotel){
+                        if(($hotel["parking"])&&($hotel["vote"]>=$rate)){
+                            echo '<div class="row">';
+                            ($hotel["parking"]) ? $hotel["parking"] = "yes" : $hotel    ["parking"] = "no";
+                            
                             foreach($hotel as $hotel_info){
                                 echo "<div class=col>{$hotel_info}</div>";
                             }
