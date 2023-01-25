@@ -40,4 +40,35 @@
 
     ];
 
-?>
+
+    ?>
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+        <title>Document</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col"><h2>Hotel</h2></div>
+                <div class="col"><h2>Description</h2></div>
+                <div class="col"><h2>parking</h2></div>
+                <div class="col"><h2>vote</h2></div>
+                <div class="col"><h2>distance to center (km)</h2></div>
+            </div>
+            <?php 
+            foreach($hotels as $hotel){
+                foreach($hotel as $hotel_info){
+                    echo $hotel_info;
+                }
+            }
+            ?>
+        </div>
+    </body>
+</html>
