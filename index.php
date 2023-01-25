@@ -64,9 +64,11 @@
             </div>
             <?php 
             foreach($hotels as $hotel){
+                echo '<div class="row">';
                 foreach($hotel as $hotel_info){
-                    echo $hotel_info;
+                    echo "<div class=col>{$hotel_info}</div>";
                 }
+                echo '</div>';
             }
             ?>
         </div>
