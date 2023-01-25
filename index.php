@@ -65,6 +65,8 @@
             <?php 
             foreach($hotels as $hotel){
                 echo '<div class="row">';
+                ($hotel["parking"]) ? $hotel["parking"] = "yes" : $hotel["parking"] = "no";
+
                 foreach($hotel as $hotel_info){
                     echo "<div class=col>{$hotel_info}</div>";
                 }
